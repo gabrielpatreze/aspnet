@@ -1,0 +1,92 @@
+﻿@model Sistema.Models.Pedido
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Pedido</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ClienteId)
+    @Html.HiddenFor(model => model.PedidoId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ClienteId, "Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("ClienteId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ClienteId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+
+    <!-- Tabela de Itens do Pedido -->
+    <div class="row">
+        <div class="col-md-12">
+
+            <h2 class="text-center">Itens</h2>
+
+            <p>
+                @Html.ActionLink("Adicionar Item", "NovoItem", new { pedidoId = Model.PedidoId })
+            </p>
+            <table class="table">
+                <tr>
+                    <th>
+                        Quantidade
+                    </th>
+                    <th>
+                        Valor
+                    </th>
+                    <th>
+                        Data
+                    </th>
+                    <th>
+                    <th></th>
+                </tr>
+                @if (Model.PedidoItems?.Count > 0)
+                {
+                    foreach (var item in Model.PedidoItems)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantidade)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Valor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Data)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditarItem", new { id = item.PedidoItemId }) |
+                                @Html.ActionLink("Delete", "DeleteItem", new { id = item.PedidoItemId })
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

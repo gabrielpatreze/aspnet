@@ -1,0 +1,160 @@
+﻿@model Sistema.Models.Cliente
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Cliente</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ClienteId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cpf, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoriaId, "CategoriaId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CategoriaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoriaId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Tabela de Endereços do Clientes -->
+    <div class="row">
+        <div class="col-md-12">
+
+            <h2 class="text-center">Endereços</h2>
+
+            <p>
+                @Html.ActionLink("Adicionar Endereço", "NovoEndereco", new { clienteId = Model.ClienteId })
+            </p>
+            <table class="table">
+                <tr>
+                    <th>
+                        Rua
+                    </th>
+                    <th>
+                        Número
+                    </th>
+                    <th>
+                        Bairro
+                    </th>
+                    <th></th>
+                </tr>
+                @if (Model.Enderecos?.Count > 0)
+                {
+                    foreach (var item in Model.Enderecos)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rua)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Numero)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Bairro)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditarEndereco", new { id = item.EnderecoId }) |
+                                @Html.ActionLink("Delete", "DeleteEndereco", new { id = item.EnderecoId })
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Tabela de Telefones do Clientes -->
+    <div class="row">
+        <div class="col-md-12">
+
+            <h2 class="text-center">Telefones</h2>
+
+            <p>
+                @Html.ActionLink("Adicionar Telefone", "NovoTelefone", new { clienteId = Model.ClienteId })
+            </p>
+            <table class="table">
+                <tr>
+                    <th>
+                        DD
+                    </th>
+                    <th>
+                        Número
+                    </th>
+                    <th>
+                    <th></th>
+                </tr>
+                @if (Model.Telefones?.Count > 0)
+                {
+                    foreach (var item in Model.Telefones)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DDD)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TelefoneNumero)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditarTelefone", new { id = item.TelefoneId }) |
+                                @Html.ActionLink("Delete", "DeleteTelefone", new { id = item.TelefoneId })
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

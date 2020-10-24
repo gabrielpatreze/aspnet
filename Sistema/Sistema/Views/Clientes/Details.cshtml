@@ -1,0 +1,126 @@
+﻿@model Sistema.Models.Cliente
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cpf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cpf)
+        </dd>
+
+    </dl>
+
+    <hr />
+
+    <!-- Tabela de Endereços do Clientes -->
+    <div class="row">
+        <div class="col-md-12">
+
+            <h2 class="text-center">Endereços</h2>
+            <table class="table">
+                <tr>
+                    <th>
+                        Rua
+                    </th>
+                    <th>
+                        Número
+                    </th>
+                    <th>
+                        Bairro
+                    </th>
+                </tr>
+                @if (Model.Enderecos?.Count > 0)
+                {
+                    foreach (var item in Model.Enderecos)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rua)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Numero)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Bairro)
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+
+
+    <!-- Tabela de Telefones do Clientes -->
+    <div class="row">
+        <div class="col-md-12">
+
+            <h2 class="text-center">Telefones</h2>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        DD
+                    </th>
+                    <th>
+                        Número
+                    </th>
+                    <th>
+                </tr>
+                @if (Model.Telefones?.Count > 0)
+                {
+                    foreach (var item in Model.Telefones)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DDD)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TelefoneNumero)
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ClienteId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

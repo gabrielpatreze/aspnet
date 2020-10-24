@@ -1,0 +1,61 @@
+﻿@model Sistema.Models.Pedido
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pedido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+
+    <hr />
+
+    <!-- Tabela de Itens do Pedido -->
+    <div class="row">
+        <div class="col-md-12">
+
+            <h2 class="text-center">Itens</h2>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Quantidade
+                    </th>
+                    <th>
+                        Valor
+                    </th>
+                    <th>
+                        Data
+                    </th>
+                    <th>
+                </tr>
+                @if (Model.PedidoItems?.Count > 0)
+                {
+                    foreach (var item in Model.PedidoItems)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantidade)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Valor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Data)
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ClienteId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
